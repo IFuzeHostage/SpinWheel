@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using IFuzeHostage.SpinWheel.Data;
 using IFuzeHostage.SpinWheel.Utilities;
-using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace IFuzeHostage.SpinWheel
 {
