@@ -9,6 +9,8 @@ namespace IFuzeHostage.SpinWheel
 {
     internal class RandomSpinWheelController : ISpinWheelController
     {
+        public Action OnInitialized { get; set; }
+        
         private List<RewardData> _rewardDatas;
         
         public RandomSpinWheelController(List<RewardData> rewardDatas)
@@ -18,12 +20,12 @@ namespace IFuzeHostage.SpinWheel
         
         public void Init()
         {
-            
+            OnInitialized?.Invoke();
         }
 
-        public List<RewardData> GetRewardList()
+        public Task<List<RewardData>> GetRewardList()
         {
-            return _rewardDatas;
+            return Task.FromResult(_rewardDatas);
         }
 
         public Task<RewardData> GetRandomReward()
