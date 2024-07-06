@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using IFuzeHostage.SpinWheel.Data;
+using IFuzeHostage.SpinWheel.Utilities;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,11 +34,11 @@ namespace IFuzeHostage.SpinWheel
             {
                 return Task.FromException<RewardData>(new IndexOutOfRangeException("SpinWheel: Reward list is empty"));
             }
-            
-            int randomIndex = Random.Range(0, _rewardDatas.Count);
-            RewardData selectedData = _rewardDatas[randomIndex];
 
-            return Task.FromResult(selectedData);
+            var randomItem = WeightedRandom.GetItem<RewardData>(_rewardDatas.Select(
+                data => new WeightedItem<RewardData>(data, data.Weight)));
+
+            return Task.FromResult(randomItem);
         }
     }
 }
