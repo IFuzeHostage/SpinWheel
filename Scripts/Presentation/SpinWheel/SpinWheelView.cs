@@ -12,11 +12,18 @@ public class SpinWheelView : MonoBehaviour
     [SerializeField]
     private SpinWheelSlice _slicePrefab;
     [SerializeField]
+    private SpinWheelAnimator _animator;
+    [SerializeField]
     private RectTransform _sliceParent;
     
     private ISpinWheelPresenter _presenter;
     private WheelSlicesAdapter _sliceAdapter;
 
+    public void AddWheelSlice(RewardData rewardData, float startAngle, float selfAngle)
+    {
+        _sliceAdapter.AddWheelSlice(rewardData, startAngle, selfAngle);
+    }
+    
     public void Open(List<RewardData> rewardDatas)
     {
         _presenter.Construct(new RandomSpinWheelController(rewardDatas));
@@ -30,6 +37,21 @@ public class SpinWheelView : MonoBehaviour
     private void OnSpinButton()
     {
         _presenter.SpinClicked();
+    }
+    
+    public void StartSpin()
+    {
+        _animator.StartSpin();
+    }
+
+    public void StopSpin()
+    {
+        _animator.StopSpin();
+    }
+
+    public void StopSpinAt(float angle)
+    {
+        _animator.StopSpinAt(angle);    
     }
     
     private void Awake()

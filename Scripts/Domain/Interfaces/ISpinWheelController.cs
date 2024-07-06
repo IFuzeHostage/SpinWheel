@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using IFuzeHostage.SpinWheel.Data;
@@ -10,8 +11,9 @@ namespace IFuzeHostage.SpinWheel
     /// </summary>
     public interface ISpinWheelController
     {
+        public Action OnInitialized { get; set; }
         public void Init();
-        public List<RewardData> GetRewardList();
+        public Task<List<RewardData>> GetRewardList();
         public Task<RewardData> GetRandomReward();
     }
 }
