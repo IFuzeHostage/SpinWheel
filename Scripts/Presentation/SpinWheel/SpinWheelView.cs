@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace IFuzeHostage.SpinWheel.Presentation.SpinWheel
 {
+    /// <summary>
+    /// View for a SpinWheel. Contains an actual Wheel and references to important objects
+    /// </summary>
     public class SpinWheelView : MonoBehaviour
     {
         public Action<RewardData> OnWheelStopped;

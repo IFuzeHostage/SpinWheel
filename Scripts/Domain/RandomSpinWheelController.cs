@@ -8,6 +8,10 @@ using Random = UnityEngine.Random;
 
 namespace IFuzeHostage.SpinWheel.Domain
 {
+    /// <summary>
+    /// Default implementation of ISPinWheelController. Generates Random reward based on provided weight. 
+    /// Works with guaranteed rewards and replaces dropped rewards with other ones.
+    /// </summary>
     internal class RandomSpinWheelController : ISpinWheelController
     {
         public Action OnInitialized { get; set; }
@@ -63,7 +67,9 @@ namespace IFuzeHostage.SpinWheel.Domain
             RewardData replacementReward = _replacementRewards[Random.Range(0, _replacementRewards.Count)];
             
             _replacementRewards.Remove(replacementReward);
-            _replacementRewards.Add(grantedItem);
+            
+            if(grantedItem is not ItemRewardData { CanGetMultiple: true })
+                _replacementRewards.Add(grantedItem);
 
             if (_activeRewards.Contains(grantedItem))
             {

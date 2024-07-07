@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 namespace IFuzeHostage.SpinWheel.Presentation.SpinWheel
 {
+    /// <summary>
+    /// A single segment of a SpinWheel containing a reward
+    /// </summary>
     public class SpinWheelSlice : MonoBehaviour
     {
         public RectTransform RectTransform

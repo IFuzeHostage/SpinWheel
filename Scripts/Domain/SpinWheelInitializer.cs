@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace IFuzeHostage.SpinWheel.Domain
 {
+    /// <summary>
+    /// Mostly Sample class with initialization example for SpinWheel
+    /// </summary>
     public class SpinWheelInitializer : MonoBehaviour
     {
         [SerializeField]

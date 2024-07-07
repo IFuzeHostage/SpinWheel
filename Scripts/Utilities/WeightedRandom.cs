@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace IFuzeHostage.SpinWheel.Utilities
 {
+    /// <summary>
+    /// Randomize lists based on weights of its elements
+    /// </summary>
     internal static class WeightedRandom
     {
         private static Random _random = new Random();

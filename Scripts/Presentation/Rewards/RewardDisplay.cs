@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace IFuzeHostage.SpinWheel.Presentation.Rewards
 {
+    /// <summary>
+    /// A class for displaying RewardData in UI
+    /// </summary>
     public class RewardDisplay : MonoBehaviour
     {
         public RectTransform RectTransform

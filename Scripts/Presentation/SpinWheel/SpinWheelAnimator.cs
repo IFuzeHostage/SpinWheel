@@ -3,6 +3,9 @@ using UnityEngine.Events;
 
 namespace IFuzeHostage.SpinWheel.Presentation.SpinWheel
 {
+    /// <summary>
+    /// Animates spinning of a SpinWheel
+    /// </summary>
     public abstract class SpinWheelAnimator : MonoBehaviour
     {
         public UnityEvent OnSpinFinished;

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace IFuzeHostage.SpinWheel
 {
+    /// <summary>
+    /// An example of a button controller for a activating a wheel spin
+    /// </summary>
     public class SpinWheelButtonController : MonoBehaviour
     {
         [SerializeField]
