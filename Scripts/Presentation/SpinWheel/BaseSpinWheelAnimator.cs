@@ -88,8 +88,8 @@ namespace IFuzeHostage.SpinWheel
 
         private void OnAnimationStopped()
         {
-            OnSpinFinished?.Invoke();
             _currentState = null;
+            OnSpinFinished?.Invoke();
         }
         
         private void EnterState(SpinAnimationState state)

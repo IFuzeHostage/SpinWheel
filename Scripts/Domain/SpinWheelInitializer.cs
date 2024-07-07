@@ -11,13 +11,17 @@ namespace IFuzeHostage.SpinWheel
         [SerializeField]
         private SpinWheelView _spinWheel;
         [SerializeField]
+        private RewardWindow _rewardWindow;
+        [SerializeField]
         private SpinWheelButtonController _spinButton;
 
         private void Start()
         {
+            _spinWheel.OnWheelStopped += OnWheelStopped;
             _spinWheel.Open(_rewardDataList.RewardData);
             _spinButton.Set(FreeButtonSpin, "FREE SPIN");
         }
+
 
         private void FreeButtonSpin()
         {
@@ -29,6 +33,11 @@ namespace IFuzeHostage.SpinWheel
         {
             Debug.Log("You spent a ticket");
             _spinWheel.StartSpin();
+        }
+        
+        private void OnWheelStopped(RewardData reward)
+        {
+            _rewardWindow.Open(reward);
         }
     }
 }

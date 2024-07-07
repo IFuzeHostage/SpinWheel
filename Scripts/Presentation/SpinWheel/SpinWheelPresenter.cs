@@ -49,7 +49,7 @@ namespace IFuzeHostage.SpinWheel
         {
             _view.ClearWheelSlices();
             
-            _rewardDatas = await _controller.GetRewardList();
+            _rewardDatas = new List<RewardData>(await _controller.GetRewardList());
 
             for (int i = 0; i < _rewardDatas.Count; i++)
             {
@@ -74,7 +74,9 @@ namespace IFuzeHostage.SpinWheel
             var randomOffset = Random.Range(0, angle);
             
             Debug.Log(offset);
-            _view.StopSpinAnimationAt(offset - randomOffset);
+            Debug.Log(offset + randomOffset);
+            
+            _view.StopSpinAnimationAt(offset + randomOffset);
             _view.SetReward(rewardData);
             return rewardData;
         }
