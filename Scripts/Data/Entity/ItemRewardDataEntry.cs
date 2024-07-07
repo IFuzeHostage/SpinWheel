@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IFuzeHostage.SpinWheel.Data
+namespace IFuzeHostage.SpinWheel.Data.Entity
 {
     [CreateAssetMenu(menuName = "IFuzeHostage/SpinWheel/Item Reward Data Entry", fileName = "item_reward_data_entry")]
     public class ItemRewardDataEntry : RewardDataEntry

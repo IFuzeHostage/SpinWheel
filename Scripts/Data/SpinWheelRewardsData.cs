@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using IFuzeHostage.SpinWheel.Data.Entity;
 using UnityEngine;
 
 namespace IFuzeHostage.SpinWheel.Data

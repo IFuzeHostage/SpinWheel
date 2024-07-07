@@ -1,14 +1,15 @@
-﻿using UnityEngine;
+﻿using IFuzeHostage.SpinWheel.Presentation.SpinWheel;
+using UnityEngine;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Domain.Animator
 {
     internal class StoppingSpinAnimatorState : SpinAnimationState
     {
         private readonly float _deceleration;
         
-        public StoppingSpinAnimatorState(BaseSpinWheelAnimator animator, float deceleartion) : base(animator)
+        public StoppingSpinAnimatorState(BaseSpinWheelAnimator animator, float deceleration) : base(animator)
         {
-            _deceleration = deceleartion;
+            _deceleration = deceleration;
         }
         
         public override void Enter()

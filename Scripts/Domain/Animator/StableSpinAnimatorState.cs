@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using IFuzeHostage.SpinWheel.Presentation.SpinWheel;
+using UnityEngine;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Domain.Animator
 {
     internal class StableSpinAnimatorState : SpinAnimationState
     {

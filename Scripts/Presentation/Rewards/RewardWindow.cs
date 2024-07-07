@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Presentation.Rewards
 {
     public class RewardWindow : MonoBehaviour
     {

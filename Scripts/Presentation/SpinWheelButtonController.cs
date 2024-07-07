@@ -18,6 +18,10 @@ namespace IFuzeHostage.SpinWheel
             _button.onClick.AddListener(() => clickAction?.Invoke());
             _text.text = buttonText;
         }
-            
+
+        public void SetEnabled(bool isEnabled)
+        {
+            _button.interactable = isEnabled;
+        }
     }
 }

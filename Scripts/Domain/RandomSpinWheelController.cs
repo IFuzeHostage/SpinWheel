@@ -6,7 +6,7 @@ using IFuzeHostage.SpinWheel.Data;
 using IFuzeHostage.SpinWheel.Utilities;
 using Random = UnityEngine.Random;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Domain
 {
     internal class RandomSpinWheelController : ISpinWheelController
     {

@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using IFuzeHostage.SpinWheel.Data;
+using IFuzeHostage.SpinWheel.Presentation.SpinWheel;
 using UnityEngine;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Domain
 {
-    public class WheelSlicesAdapter
+    internal class WheelSlicesAdapter
     {
         private readonly SpinWheelSlice _spinWheelSlice;
         private readonly RectTransform _sliceParent;

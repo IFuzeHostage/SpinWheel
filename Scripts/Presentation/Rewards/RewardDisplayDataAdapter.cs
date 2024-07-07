@@ -1,10 +1,8 @@
-﻿using System;
-using IFuzeHostage.SpinWheel.Data;
-using UnityEngine;
+﻿using IFuzeHostage.SpinWheel.Data;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Presentation.Rewards
 {
-    public class RewardDisplayDataAdapter
+    internal class RewardDisplayDataAdapter
     {
         private readonly RewardDisplay _dispaly;
         

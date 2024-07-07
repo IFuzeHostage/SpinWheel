@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using IFuzeHostage.SpinWheel.Presentation.SpinWheel;
+using IFuzeHostage.SpinWheel.Utilities;
+using UnityEngine;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Domain.Animator
 {
     internal class StoppingAtSpinAnimatorState: SpinAnimationState
     {
@@ -32,7 +34,7 @@ namespace IFuzeHostage.SpinWheel
 
         public override void Update()
         {
-            if (_remainingRotation <= 0.01f)
+            if (_remainingRotation <= CircleUtilities.APPROXIMATE_THRESHOLD)
             {
                 Animator.CurrentSpeed = 0;
                 OnComplete?.Invoke();

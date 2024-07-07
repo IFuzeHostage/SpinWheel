@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Presentation.SpinWheel
 {
     public abstract class SpinWheelAnimator : MonoBehaviour
     {

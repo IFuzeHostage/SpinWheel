@@ -1,7 +1,10 @@
 ﻿using IFuzeHostage.SpinWheel.Data;
+using IFuzeHostage.SpinWheel.Data.Entity;
+using IFuzeHostage.SpinWheel.Presentation.Rewards;
+using IFuzeHostage.SpinWheel.Presentation.SpinWheel;
 using UnityEngine;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Domain
 {
     public class SpinWheelInitializer : MonoBehaviour
     {
@@ -25,6 +28,7 @@ namespace IFuzeHostage.SpinWheel
 
         private void FreeButtonSpin()
         {
+            _spinButton.SetEnabled(false);
             _spinWheel.StartSpin();
             _spinButton.Set(PaidButtonSpin, "SPIN FOR TICKET");
         }
@@ -32,11 +36,13 @@ namespace IFuzeHostage.SpinWheel
         private void PaidButtonSpin()
         {
             Debug.Log("You spent a ticket");
+            _spinButton.SetEnabled(false);
             _spinWheel.StartSpin();
         }
         
         private void OnWheelStopped(RewardData reward)
         {
+            _spinButton.SetEnabled(true);
             _rewardWindow.Open(reward);
         }
     }

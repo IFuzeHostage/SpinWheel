@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IFuzeHostage.SpinWheel.Data
+namespace IFuzeHostage.SpinWheel.Data.Entity
 {
     public abstract class RewardDataEntry : ScriptableObject
     {

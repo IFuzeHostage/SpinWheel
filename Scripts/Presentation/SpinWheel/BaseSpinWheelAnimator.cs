@@ -1,8 +1,8 @@
-﻿using System;
-using Unity.Mathematics;
+﻿using IFuzeHostage.SpinWheel.Domain.Animator;
+using IFuzeHostage.SpinWheel.Utilities;
 using UnityEngine;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Presentation.SpinWheel
 {
     public class BaseSpinWheelAnimator : SpinWheelAnimator
     {
@@ -13,7 +13,7 @@ namespace IFuzeHostage.SpinWheel
             private set
             {
                 _currentRotation = value;
-                _wheelRect.rotation = Quaternion.Euler(0, 0, _currentRotation * 360f);
+                _wheelRect.rotation = Quaternion.Euler(0, 0, _currentRotation * CircleUtilities.CIRCLE_DEGREES);
             }
         }
 
@@ -48,7 +48,7 @@ namespace IFuzeHostage.SpinWheel
         private StartSpinAnimationState _startState;
         private StableSpinAnimatorState _stableState;
         private StoppingAtSpinAnimatorState _stoppingAtState;
-        private StoppingSpinAnimatorState _stoppinState;
+        private StoppingSpinAnimatorState _stoppingState;
         
         public override void StartSpin()
         {
@@ -58,7 +58,7 @@ namespace IFuzeHostage.SpinWheel
 
         public override void StopSpin()
         {
-            _stableState.OnComplete = () => EnterState(_stoppinState);
+            _stableState.OnComplete = () => EnterState(_stoppingState);
         }
 
         public override void StopSpinAt(float angle)
@@ -72,10 +72,10 @@ namespace IFuzeHostage.SpinWheel
             _startState = new StartSpinAnimationState(this, _maxSpeed, _acceleration);
             _stableState = new StableSpinAnimatorState(this, _maxSpeed, _minSpinDuration);
             _stoppingAtState = new StoppingAtSpinAnimatorState(this, _maxSpeed, _fakeRotationsToTarget);
-            _stoppinState = new StoppingSpinAnimatorState(this, _deceleration);
+            _stoppingState = new StoppingSpinAnimatorState(this, _deceleration);
 
             _stoppingAtState.OnComplete = OnAnimationStopped;
-            _stoppinState.OnComplete = OnAnimationStopped;
+            _stoppingState.OnComplete = OnAnimationStopped;
         }
         
         private void Update()
@@ -83,7 +83,7 @@ namespace IFuzeHostage.SpinWheel
             _currentState?.Update();
 
             _currentRotation += _currentSpeed * Time.deltaTime;
-            _wheelRect.rotation = Quaternion.Euler(0, 0, _currentRotation * 360f);
+            _wheelRect.rotation = Quaternion.Euler(0, 0, _currentRotation * CircleUtilities.CIRCLE_DEGREES);
         }
 
         private void OnAnimationStopped()

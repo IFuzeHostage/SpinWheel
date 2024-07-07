@@ -1,16 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using IFuzeHostage.SpinWheel;
-using UnityEngine;
 
-public interface ISpinWheelPresenter
+namespace IFuzeHostage.SpinWheel.Presentation.SpinWheel
 {
-    public void Construct(ISpinWheelController controller);
-    
-    public void SetView(SpinWheelView view);
+    internal interface ISpinWheelPresenter
+    {
+        public void Construct(ISpinWheelController controller);
+        
+        public void SetView(SpinWheelView view);
 
-    public void OnOpen();
-    public void OnClose();
+        public void OnOpen();
+        public void OnClose();
 
-    public void SpinStarted();
+        public void SpinStarted();
+    }
 }

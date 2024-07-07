@@ -1,6 +1,7 @@
 ﻿using System;
+using IFuzeHostage.SpinWheel.Presentation.SpinWheel;
 
-namespace IFuzeHostage.SpinWheel
+namespace IFuzeHostage.SpinWheel.Domain.Animator
 {
     internal abstract class SpinAnimationState
     {
