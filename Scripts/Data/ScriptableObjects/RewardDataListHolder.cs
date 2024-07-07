@@ -8,9 +8,9 @@ namespace IFuzeHostage.SpinWheel.Data
     [CreateAssetMenu(menuName = "IFuzeHostage/SpinWheel/Reward Data List", fileName = "reward_data_list")]
     public class RewardDataListHolder : ScriptableObject
     {
-        public List<RewardData> RewardDatas => _rewards.Select(entry => entry.Data).ToList();
+        public SpinWheelRewardsData RewardData => _rewards;
         
         [SerializeField]
-        private List<RewardDataEntry> _rewards;
+        private SpinWheelRewardsData _rewards;
     }   
 }

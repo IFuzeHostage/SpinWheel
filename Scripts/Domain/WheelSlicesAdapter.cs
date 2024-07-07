@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using IFuzeHostage.SpinWheel.Data;
 using UnityEngine;
 
@@ -19,12 +20,29 @@ namespace IFuzeHostage.SpinWheel
         
         public void AddWheelSlice(RewardData rewardData, float startAngle, float selfAngle)
         {
+            var pooledSlice = _slices.FirstOrDefault(slice => !slice.gameObject.activeSelf);
+            if (pooledSlice != null)
+            {
+                pooledSlice.gameObject.SetActive(true);
+                pooledSlice.Set(rewardData, selfAngle);
+                pooledSlice.RectTransform.localRotation = Quaternion.Euler(0,0,startAngle);
+                return;
+            }
+            
             SpinWheelSlice slice = GameObject.Instantiate(_spinWheelSlice, _sliceParent);
             
             slice.Set(rewardData, selfAngle);
-            slice.RectTransform.rotation = Quaternion.Euler(0,0,startAngle);
+            slice.RectTransform.localRotation = Quaternion.Euler(0,0,startAngle);
             
             _slices.Add(slice);
+        }
+
+        public void ClearSlices()
+        {
+            foreach (var slice in _slices)
+            {
+                slice.gameObject.SetActive(false);
+            }
         }
     }
 }

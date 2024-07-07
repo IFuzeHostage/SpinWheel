@@ -22,6 +22,7 @@ namespace IFuzeHostage.SpinWheel
         public void SetView(SpinWheelView view)
         {
             _view = view;
+            _view.OnWheelStopped += OnWheelStopped;
         }
 
         public void OnOpen()
@@ -36,7 +37,6 @@ namespace IFuzeHostage.SpinWheel
 
         public void SpinStarted()
         {
-            _view.StartSpinAnimation();
             WaitForReward();
         }
         
@@ -47,6 +47,8 @@ namespace IFuzeHostage.SpinWheel
 
         private async void BuildWheelSlices()
         {
+            _view.ClearWheelSlices();
+            
             _rewardDatas = await _controller.GetRewardList();
 
             for (int i = 0; i < _rewardDatas.Count; i++)
@@ -61,6 +63,7 @@ namespace IFuzeHostage.SpinWheel
 
         private async Task<RewardData> WaitForReward()
         {
+            _view.StartSpinAnimation();
             RewardData rewardData = await _controller.GetRandomReward();
             
             Debug.Log(rewardData.Id);
@@ -72,7 +75,13 @@ namespace IFuzeHostage.SpinWheel
             
             Debug.Log(offset);
             _view.StopSpinAnimationAt(offset - randomOffset);
+            _view.SetReward(rewardData);
             return rewardData;
+        }
+        
+        private void OnWheelStopped(RewardData reward)
+        {
+            BuildWheelSlices();
         }
     }
 }

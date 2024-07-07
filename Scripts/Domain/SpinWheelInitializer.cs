@@ -15,7 +15,7 @@ namespace IFuzeHostage.SpinWheel
 
         private void Start()
         {
-            _spinWheel.Open(_rewardDataList.RewardDatas);
+            _spinWheel.Open(_rewardDataList.RewardData);
             _spinButton.Set(FreeButtonSpin, "FREE SPIN");
         }
 

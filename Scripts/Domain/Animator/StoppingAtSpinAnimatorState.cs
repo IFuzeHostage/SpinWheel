@@ -32,7 +32,7 @@ namespace IFuzeHostage.SpinWheel
 
         public override void Update()
         {
-            if (_remainingRotation <= 0)
+            if (_remainingRotation <= 0.01f)
             {
                 Animator.CurrentSpeed = 0;
                 OnComplete?.Invoke();
