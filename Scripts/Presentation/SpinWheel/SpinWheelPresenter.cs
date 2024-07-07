@@ -71,7 +71,7 @@ namespace IFuzeHostage.SpinWheel
             var randomOffset = Random.Range(0, angle);
             
             Debug.Log(offset);
-            _view.StopSpinAnimationAt(offset + randomOffset);
+            _view.StopSpinAnimationAt(offset - randomOffset);
             return rewardData;
         }
     }

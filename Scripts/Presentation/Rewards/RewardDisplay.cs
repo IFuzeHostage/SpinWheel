@@ -26,17 +26,28 @@ namespace IFuzeHostage.SpinWheel
         private TextMeshProUGUI _nameText;
 
         private RectTransform _rect;
+        private RewardDisplayDataAdapter _dataAdapter;
         
         public void SetData(RewardData rewardData)
         {
+            _dataAdapter.Set(rewardData);
+        }
+
+        public void Set(Sprite icon, string countText, string nameText)
+        {
             if(_rewardIcon != null)
-                _rewardIcon.sprite = rewardData.Icon;
+                _rewardIcon.sprite = icon;
 
             if (_nameText != null)
-                _nameText.text = rewardData.DisplayName;
+                _nameText.text = nameText;
 
             if (_countText != null)
-                _countText.text = $"1x";
+                _countText.text = countText;
+        }
+
+        private void Awake()
+        {
+            _dataAdapter = new RewardDisplayDataAdapter(this);
         }
     }
 }
