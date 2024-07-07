@@ -12,5 +12,5 @@ public interface ISpinWheelPresenter
     public void OnOpen();
     public void OnClose();
 
-    public void SpinClicked();
+    public void SpinStarted();
 }

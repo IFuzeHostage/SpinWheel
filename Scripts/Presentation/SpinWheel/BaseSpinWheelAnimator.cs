@@ -6,66 +6,87 @@ namespace IFuzeHostage.SpinWheel
 {
     public class BaseSpinWheelAnimator : SpinWheelAnimator
     {
-        [SerializeField]
-        private RectTransform _wheelRect;
-        [SerializeField]
-        private float _acceleration = 1;
-        [SerializeField]
-        private float _deceleration = 1;
-        [SerializeField]
-        private float _maxSpeed = 5f;
-        [SerializeField]
-        private float _minSpinTime = 3f;
-        
-        private float _currentRotation;
+        public float CurrentRotation
+        {
+            get => _currentRotation;
 
-        private float _targetSpeed;
+            private set
+            {
+                _currentRotation = value;
+                _wheelRect.rotation = Quaternion.Euler(0, 0, _currentRotation * 360f);
+            }
+        }
+
+        public float CurrentSpeed
+        {
+            get => _currentSpeed;
+            set => _currentSpeed = value;
+        }
+        
+        [SerializeField,Tooltip("Rotating element of the wheel")]
+        private RectTransform _wheelRect;
+        
+        [SerializeField,Tooltip("Acceleration of starting wheel")]
+        private float _acceleration = 1;
+        
+        [SerializeField,Tooltip("Slowing down of stopping wheel")]
+        private float _deceleration = 1;
+        
+        [SerializeField,Tooltip("Max rotation speed of the wheel")]
+        private float _maxSpeed = 5f;
+        
+        [SerializeField,Tooltip("How many fake rotations while slowing down to target angle")]
+        private int _fakeRotationsToTarget = 2;
+
+        [SerializeField,Tooltip("Minimum type of spinning")]
+        private float _minSpinDuration = 3f;
+
+        private float _currentRotation;
         private float _currentSpeed;
 
-        private bool _isSpinning;
-
-        private float _spinStartTime = float.MinValue;
+        private SpinAnimationState _currentState;
+        private StartSpinAnimationState _startState;
+        private StableSpinAnimatorState _stableState;
+        private StoppingAtSpinAnimatorState _stoppingAtState;
+        private StoppingSpinAnimatorState _stoppinState;
         
         public override void StartSpin()
         {
-            _spinStartTime = Time.time;
-            _isSpinning = true;
+            _startState.OnComplete = () => EnterState(_stableState);
+            EnterState(_startState);
         }
 
         public override void StopSpin()
         {
-            _isSpinning = false;
+            _stableState.OnComplete = () => EnterState(_stoppinState);
         }
 
         public override void StopSpinAt(float angle)
         {
-            
+            _stoppingAtState.TargetRotation = angle;
+            _stableState.OnComplete = () => EnterState(_stoppingAtState);
         }
 
-
-        private void UpdateSpeed()
+        private void Awake()
         {
-            var delta = (_targetSpeed > _currentSpeed ? _acceleration : _deceleration) * Time.deltaTime;
-            _currentSpeed = Mathf.MoveTowards(_currentSpeed, _targetSpeed, delta);
+            _startState = new StartSpinAnimationState(this, _maxSpeed, _acceleration);
+            _stableState = new StableSpinAnimatorState(this, _maxSpeed, _minSpinDuration);
+            _stoppingAtState = new StoppingAtSpinAnimatorState(this, _maxSpeed, _fakeRotationsToTarget);
+            _stoppinState = new StoppingSpinAnimatorState(this, _deceleration);
         }
-
-        private void UpdateRotation()
+        
+        private void Update()
         {
-            _currentRotation += _currentSpeed * Time.deltaTime * 360f;
-            _wheelRect.rotation = quaternion.Euler(0f,0f,_currentRotation);
+            _currentState?.Update();
+
+            _currentRotation += _currentSpeed * Time.deltaTime;
+            _wheelRect.rotation = Quaternion.Euler(0, 0, _currentRotation * 360f);
         }
-
-        private bool IsMinSpinDone()
+        
+        private void EnterState(SpinAnimationState state)
         {
-            return (Time.time - _spinStartTime) > _minSpinTime;
-        }
-
-        private void LateUpdate()
-        {
-            _targetSpeed = (_isSpinning || !IsMinSpinDone()) ? _maxSpeed : 0f;
-            
-            UpdateSpeed();
-            UpdateRotation();
+            _currentState = state;
+            _currentState.Enter();
         }
     }
 }

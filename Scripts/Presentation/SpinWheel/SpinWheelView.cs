@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class SpinWheelView : MonoBehaviour
 {
     [SerializeField]
-    private Button _spinButton;
-    [SerializeField]
     private SpinWheelSlice _slicePrefab;
     [SerializeField]
     private SpinWheelAnimator _animator;
@@ -34,22 +32,22 @@ public class SpinWheelView : MonoBehaviour
         _presenter.Construct(customWheelController);
     }
     
-    private void OnSpinButton()
+    public void StartSpin()
     {
-        _presenter.SpinClicked();
+        _presenter.SpinStarted();
     }
     
-    public void StartSpin()
+    public void StartSpinAnimation()
     {
         _animator.StartSpin();
     }
 
-    public void StopSpin()
+    public void StopSpinAnimation()
     {
         _animator.StopSpin();
     }
 
-    public void StopSpinAt(float angle)
+    public void StopSpinAnimationAt(float angle)
     {
         _animator.StopSpinAt(angle);    
     }
@@ -60,7 +58,5 @@ public class SpinWheelView : MonoBehaviour
         _presenter.SetView(this);
 
         _sliceAdapter = new WheelSlicesAdapter(_slicePrefab, _sliceParent);
-        
-        _spinButton.onClick.AddListener(OnSpinButton);
     }
 }

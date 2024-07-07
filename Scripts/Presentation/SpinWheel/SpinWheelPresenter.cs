@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using IFuzeHostage.SpinWheel.Data;
+using UnityEngine;
 
 namespace IFuzeHostage.SpinWheel
 {
@@ -9,6 +10,8 @@ namespace IFuzeHostage.SpinWheel
         private SpinWheelView _view;
         private ISpinWheelController _controller;
 
+        private List<RewardData> _rewardDatas;
+        
         public void Construct(ISpinWheelController controller)
         {
             _controller = controller;
@@ -31,9 +34,9 @@ namespace IFuzeHostage.SpinWheel
             
         }
 
-        public void SpinClicked()
+        public void SpinStarted()
         {
-            _view.StartSpin();
+            _view.StartSpinAnimation();
             WaitForReward();
         }
         
@@ -44,13 +47,13 @@ namespace IFuzeHostage.SpinWheel
 
         private async void BuildWheelSlices()
         {
-            List<RewardData> rewardDatas = await _controller.GetRewardList();
+            _rewardDatas = await _controller.GetRewardList();
 
-            for (int i = 0; i < rewardDatas.Count; i++)
+            for (int i = 0; i < _rewardDatas.Count; i++)
             {
-                RewardData reward = rewardDatas[i];
-                float offset = (float) i / rewardDatas.Count * 360;
-                float angle = (float) 1 / rewardDatas.Count * 360;
+                RewardData reward = _rewardDatas[i];
+                float offset = (float) i / _rewardDatas.Count * 360;
+                float angle = (float) 1 / _rewardDatas.Count * 360;
                 
                 _view.AddWheelSlice(reward, -offset, angle);
             }
@@ -59,7 +62,16 @@ namespace IFuzeHostage.SpinWheel
         private async Task<RewardData> WaitForReward()
         {
             RewardData rewardData = await _controller.GetRandomReward();
-            _view.StopSpin();
+            
+            Debug.Log(rewardData.Id);
+            
+            float offset = (float) _rewardDatas.IndexOf(rewardData) / _rewardDatas.Count;
+            float angle = (float) 1 / _rewardDatas.Count;
+
+            var randomOffset = Random.Range(0, angle);
+            
+            Debug.Log(offset);
+            _view.StopSpinAnimationAt(offset + randomOffset);
             return rewardData;
         }
     }
