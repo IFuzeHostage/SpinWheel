@@ -70,7 +70,7 @@ namespace IFuzeHostage.SpinWheel.Presentation.SpinWheel
             float angle = (float) 1 / _rewardDatas.Count;
 
             var randomOffset = Random.Range(0, angle);
-            
+
             _view.StopSpinAnimationAt(offset + randomOffset);
             _view.SetReward(rewardData);
             return rewardData;
